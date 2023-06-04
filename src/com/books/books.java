@@ -1,10 +1,12 @@
+package com.books;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Books {
+public class books {
     // Different attributes of a book
     int bookID;
     String ISBN;
@@ -12,7 +14,7 @@ public class Books {
     String author;
     Connection connection;
 
-    public Books() {
+    public books() {
         // Create a connection to the database
         try {
             String url = "jdbc:mysql://localhost:3306/books";
@@ -73,12 +75,12 @@ public class Books {
             while (resultSet.next()) {
                 int id = resultSet.getInt("bookID");
                 String isbn = resultSet.getString("ISBN");
-                String title = resultSet.getString("Title");
+                String Title = resultSet.getString("Title");
                 String author = resultSet.getString("Author");
 
                 System.out.println("Book ID: " + id);
                 System.out.println("ISBN: " + isbn);
-                System.out.println("Title: " + title);
+                System.out.println("Title: " + Title);
                 System.out.println("Author: " + author);
             }
         } catch (SQLException e) {
@@ -98,12 +100,12 @@ public class Books {
                 int id = resultSet.getInt("bookID");
                 String isbn = resultSet.getString("ISBN");
                 String title = resultSet.getString("Title");
-                String author = resultSet.getString("Author");
+                String Author = resultSet.getString("Author");
 
                 System.out.println("Book ID: " + id);
                 System.out.println("ISBN: " + isbn);
                 System.out.println("Title: " + title);
-                System.out.println("Author: " + author);
+                System.out.println("Author: " + Author);
             }
         } catch (SQLException e) {
             e.printStackTrace();
