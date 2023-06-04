@@ -1,31 +1,21 @@
-//IMPORTANT
-/* Hey guys In this code, the Student class has the required attributes 
-(sID, name, interestedIn, phone, address, dateOfBirth) as private variables. It also includes a constructor to initialize these attributes, 
-as well as getters and setters to access and modify the attribute values. */
-
-/* Please someone Create the source code folder where the project is stored.
-Inside the source code folder, create a new package (folder) called com.library 
-(or any suitable package name) to organize our classes.
-Within the com.library package, transfer this Java class file called Student.java.*/
 
 package com.library;
 
 import java.util.Date;
-
 public class Student {
-    private String sID;
-    private String name;
-    private String interestedIn;
-    private String phone;
-    private String address;
+    private String StudentID;
+    private String Name;
+    private String Interest;
+    private String Phone;
+    private String Address;
     private Date dateOfBirth;
 
-    public Student(String sID, String name, String interestedIn, String phone, String address, Date dateOfBirth) {
-        this.sID = sID;
-        this.name = name;
-        this.interestedIn = interestedIn;
-        this.phone = phone;
-        this.address = address;
+    public Student(String StudentID, String Name, String Interest, String Phone, String Address, Date dateOfBirth) {
+        this.StudentID = StudentID;
+        this.Name = Name;
+        this.Interest = Interest;
+        this.Phone = Phone;
+        this.Address = Address;
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -33,40 +23,40 @@ public class Student {
         return sID;
     }
 
-    public void setSID(String sID) {
-        this.sID = sID;
+    public void setSID(String StudentID) {
+        this.StudentID = StudentID;
     }
 
     public String getName() {
-        return name;
+        return Name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String Name) {
+        this.Name = Name;
     }
 
-    public String getInterestedIn() {
-        return interestedIn;
+    public String getInterest() {
+        return Interest;
     }
 
-    public void setInterestedIn(String interestedIn) {
-        this.interestedIn = interestedIn;
+    public void setInterest(String Interest) {
+        this.Interest = Interest;
     }
 
     public String getPhone() {
-        return phone;
+        return Phone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setPhone(String Phone) {
+        this.Phone = Phone;
     }
 
     public String getAddress() {
-        return address;
+        return Address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAddress(String Address) {
+        this.Address = Address;
     }
 
     public Date getDateOfBirth() {
