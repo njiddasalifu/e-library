@@ -8,10 +8,10 @@ import java.sql.SQLException;
 
 public class books {
     // Different attributes of a book
-    int bookID;
-    String ISBN;
-    String title;
-    String author;
+    public int bookID;
+    public String ISBN;
+    public String title;
+    public String author;
     Connection connection;
 
     public books() {
@@ -26,6 +26,22 @@ public class books {
         }
     }
 
+    public String getAuthor() {
+        return author;
+    }
+
+    public int getBookID() {
+        return bookID;
+    }
+
+    public String getISBN() {
+        return ISBN;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
     public void create() {
         try {
             String query = "INSERT INTO books (ISBN, Title, Author) VALUES (?, ?, ?)";
@@ -34,7 +50,31 @@ public class books {
             statement.setString(2, title);
             statement.setString(3, author);
             statement.executeUpdate();
-            System.out.println("Book created successfully!");
+         
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void findAllBooks() {
+        try {
+            String query = "SELECT * FROM books";
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+
+            // Process the result set and display the book information
+            while (resultSet.next()) {
+                int id = resultSet.getInt("bookID");
+                String isbn = resultSet.getString("ISBN");
+                String title = resultSet.getString("Title");
+                String author = resultSet.getString("Author");
+
+                System.out.println("Book ID: " + id);
+                System.out.println("ISBN: " + isbn);
+                System.out.println("Title: " + title);
+                System.out.println("Author: " + author);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -106,6 +146,22 @@ public class books {
                 System.out.println("ISBN: " + isbn);
                 System.out.println("Title: " + title);
                 System.out.println("Author: " + Author);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteBook(int bookID) {
+        try {
+            String query = "DELETE FROM books WHERE bookID = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, bookID);
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Book deleted successfully!");
+            } else {
+                System.out.println("Book not found with the given ID.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
