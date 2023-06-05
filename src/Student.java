@@ -1,5 +1,5 @@
 
-package com.library;
+
 
 import java.util.Date;
 public class Student {
@@ -20,7 +20,7 @@ public class Student {
     }
 
     public String getSID() {
-        return sID;
+        return StudentID;
     }
 
     public void setSID(String StudentID) {
