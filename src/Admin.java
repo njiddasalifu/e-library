@@ -3,7 +3,7 @@ import java.sql.*;
 
 public class Admin {
     
-    DBconnection db = new DBconnection();
+    BooksDBconnection db = new BooksDBconnection();
     
     public void registerLibrarian() {
         try (Scanner scanner = new Scanner(System.in)) {
