@@ -1,10 +1,13 @@
 import java.util.*;
+
+import com.mysql.cj.callback.UsernameCallback;
+
 import java.sql.*;
 
 public class Login{
 
     DBconnection db = new DBconnection();
-    
+    LibrarianPanel lb = new LibrarianPanel();
     public void login() {
         try (Scanner scanner = new Scanner(System.in)) {
             boolean exit = false;
@@ -31,7 +34,7 @@ public class Login{
                             stmt.setString(2, studentPassword);
                             ResultSet rs = stmt.executeQuery();
                             if (rs.next()) {
-                                System.out.println("Welcome, " + rs.getString("name") + " (Student)!");
+                                System.out.println("\nWelcome, " + rs.getString("name") + " (Student)!");
                                 
                                 //call the student panel here
                             } else {
@@ -54,9 +57,11 @@ public class Login{
                             stmt.setString(2, librarianPassword);
                             ResultSet rs = stmt.executeQuery();
                             if (rs.next()) {
-                                System.out.println("Welcome, " + rs.getString("name") + " (Librarian)!");
+                                System.out.println("\nWelcome, " + rs.getString("name") + " (Librarian)!");
 
                                 //call the librarian panel here
+                                lb.showPanel();
+
                             } else {
                                 System.out.println("Invalid username or password.");
                             }
@@ -77,7 +82,7 @@ public class Login{
                             stmt.setString(2, adminPassword);
                             ResultSet rs = stmt.executeQuery();
                             if (rs.next()) {
-                                System.out.println("Welcome, " + rs.getString("name") + " (Admin)!");
+                                System.out.println("\nWelcome, " + rs.getString("name") + " (Admin)!");
 
                                 //call the admin panel here.
                             } else {
@@ -97,5 +102,6 @@ public class Login{
             }
         }
     }
+
 
 }
