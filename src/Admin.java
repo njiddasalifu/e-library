@@ -51,4 +51,23 @@ public class Admin {
             }
         }
     }
+    
+    public void adminPanel() {
+        try (Scanner scanner = new Scanner(System.in)) {
+            System.out.print("Enter\n 1.Register a librarian\n 2. Remove a librarian\n ");
+            int choice = scanner.nextInt();
+   
+            switch (choice) {
+                case 1:
+                    registerLibrarian();
+                    break;
+                case 2:
+                    deleteLibrarian();
+                    break;
+                default:
+                    System.out.println("Invalid choice.");
+                    break;
+            }
+        }
+    }
 }

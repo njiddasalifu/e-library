@@ -1,13 +1,12 @@
 import java.util.*;
 
-import com.mysql.cj.callback.UsernameCallback;
-
 import java.sql.*;
 
 public class Login{
 
     DBconnection db = new DBconnection();
     LibrarianPanel lb = new LibrarianPanel();
+    Admin admin = new Admin();
     public void login() {
         try (Scanner scanner = new Scanner(System.in)) {
             boolean exit = false;
@@ -85,6 +84,7 @@ public class Login{
                                 System.out.println("\nWelcome, " + rs.getString("name") + " (Admin)!");
 
                                 //call the admin panel here.
+                                admin.adminPanel();
                             } else {
                                 System.out.println("Invalid username or password.");
                             }
