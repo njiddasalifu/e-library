@@ -1,12 +1,8 @@
-package com.books;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.*;
+import java.sql.*;
 
-public class books {
+public class Books {
     // Different attributes of a book
     public int bookID;
     public String ISBN;
@@ -14,12 +10,12 @@ public class books {
     public String author;
     Connection connection;
 
-    public books() {
+    public Books() {
         // Create a connection to the database
         try {
             String url = "jdbc:mysql://localhost:3306/books";
             String username = "root";
-            String password = "";
+            String password = "salifu";
             connection = DriverManager.getConnection(url, username, password);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -43,6 +39,13 @@ public class books {
     }
 
     public void create() {
+        try (Scanner scanner = new Scanner(System.in)) {
+            System.out.print("ISBN: ");
+            System.out.print("Title: ");
+            String ISBN = scanner.nextLine();
+            String title = scanner.nextLine();
+            System.out.print("Author: ");
+            String author = scanner.nextLine();
         try {
             String query = "INSERT INTO books (ISBN, Title, Author) VALUES (?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(query);
@@ -152,7 +155,7 @@ public class books {
         }
     }
 
-    public void deleteBook(int bookID) {
+    public void deleteBook() {
         try {
             String query = "DELETE FROM books WHERE bookID = ?";
             PreparedStatement statement = connection.prepareStatement(query);

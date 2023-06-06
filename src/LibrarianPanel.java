@@ -1,11 +1,11 @@
 
 import java.util.Scanner;
-import com.books.books;
-import java.util.*;
+
 
 public class LibrarianPanel {
-    BooksDBconnection db = new BooksDBconnection();
-    books book = new books();
+    //this is the object reference to the database connection
+    DBconnection db = new DBconnection();
+    Books book = new Books();
 
     public void showPanel() {
         boolean exit = false;
@@ -28,10 +28,10 @@ public class LibrarianPanel {
                         book.findAllBooks();
                         break;
                     case 2:
-                        addBook();
+                        book.create();
                         break;
                     case 3:
-                        removeBook();
+                        book.deleteBook();
                         break;
                     case 4:
                         // viewAllBorrowers();
@@ -52,31 +52,4 @@ public class LibrarianPanel {
             }
         }
     }
-
-    private void addBook() {
-        try (Scanner scanner = new Scanner(System.in)) {
-            System.out.print("Enter ISBN: ");
-            book.ISBN = scanner.nextLine();
-            System.out.print("Enter Title: ");
-            book.title = scanner.nextLine();
-            System.out.print("Enter Author: ");
-            book.author = scanner.nextLine();
-            book.create();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void removeBook() {
-        try (Scanner scanner = new Scanner(System.in)) {
-            System.out.print("Enter Book ID: ");
-            int bookID = scanner.nextInt();
-            book.deleteBook(bookID);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    // Rest of the methods and functionality
-    // ...
 }
