@@ -3,16 +3,16 @@ package com.library;
 public class Student {
     private int studentID;
     private int bookID;
-    private String studentName;
+    private String name;
     private String phone;
     private String email;
     private String address;
     private String interest;
 
-    public Student(int studentID, int bookID, String studentName, String phone, String email, String address, String interest) {
+    public Student(int studentID, int bookID, String name, String phone, String email, String address, String interest) {
         this.studentID = studentID;
         this.bookID = bookID;
-        this.studentName = studentName;
+        this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
@@ -35,12 +35,12 @@ public class Student {
         this.bookID = bookID;
     }
 
-    public String getStudentName() {
-        return studentName;
+    public String getname() {
+        return name;
     }
 
-    public void setStudentName(String studentName) {
-        this.studentName = studentName;
+    public void setStudentName(String name) {
+        this.name = name;
     }
 
     public String getPhone() {
