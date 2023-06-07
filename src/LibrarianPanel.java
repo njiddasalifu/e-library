@@ -25,13 +25,13 @@ public class LibrarianPanel {
 
                 switch (choice) {
                     case 1:
-                        book.findAllBooks();
+                        // book.findAllBooks();
                         break;
                     case 2:
                         book.create();
                         break;
                     case 3:
-                        book.deleteBook();
+                        // book.deleteBook();
                         break;
                     case 4:
                         // viewAllBorrowers();

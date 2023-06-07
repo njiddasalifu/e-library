@@ -10,16 +10,20 @@ public class Books {
     public String author;
     Connection connection;
 
+
+    DBconnection db = new DBconnection();
     public Books() {
+
+        
         // Create a connection to the database
-        try {
-            String url = "jdbc:mysql://localhost:3306/books";
-            String username = "root";
-            String password = "salifu";
-            connection = DriverManager.getConnection(url, username, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        // try {
+        //     String url = "jdbc:mysql://localhost:3306/books";
+        //     String username = "root";
+        //     String password = "salifu";
+        //     connection = DriverManager.getConnection(url, username, password);
+        // } catch (SQLException e) {
+        //     e.printStackTrace();
+        // }
     }
 
     public String getAuthor() {
@@ -46,7 +50,8 @@ public class Books {
             String title = scanner.nextLine();
             System.out.print("Author: ");
             String author = scanner.nextLine();
-        try {
+
+        try (Connection conn = db.getConnection()){
             String query = "INSERT INTO books (ISBN, Title, Author) VALUES (?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, ISBN);
@@ -170,4 +175,5 @@ public class Books {
             e.printStackTrace();
         }
     }
+}
 }
