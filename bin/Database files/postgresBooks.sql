@@ -1,0 +1,8 @@
+CREATE TABLE books (
+    bookID SERIAL NOT NULL PRIMARY KEY,
+    ISBN VARCHAR(255) NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    author VARCHAR(255) NOT NULL,
+    status VARCHAR(255) DEFAULT 'available',
+    quantity INT NOT NULL
+);
