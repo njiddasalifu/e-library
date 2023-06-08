@@ -45,8 +45,8 @@ public class Books {
     public void create() {
         try (Scanner scanner = new Scanner(System.in)) {
             System.out.print("ISBN: ");
-            System.out.print("Title: ");
             String ISBN = scanner.nextLine();
+            System.out.print("Title: ");
             String title = scanner.nextLine();
             System.out.print("Author: ");
             String author = scanner.nextLine();
@@ -65,115 +65,115 @@ public class Books {
         }
     }
 
-    public void findAllBooks() {
-        try {
-            String query = "SELECT * FROM books";
-            PreparedStatement statement = connection.prepareStatement(query);
-            ResultSet resultSet = statement.executeQuery();
+    // public void findAllBooks() {
+    //     try {
+    //         String query = "SELECT * FROM books";
+    //         PreparedStatement statement = connection.prepareStatement(query);
+    //         ResultSet resultSet = statement.executeQuery();
 
-            // Process the result set and display the book information
-            while (resultSet.next()) {
-                int id = resultSet.getInt("bookID");
-                String isbn = resultSet.getString("ISBN");
-                String title = resultSet.getString("Title");
-                String author = resultSet.getString("Author");
+    //         // Process the result set and display the book information
+    //         while (resultSet.next()) {
+    //             int id = resultSet.getInt("bookID");
+    //             String isbn = resultSet.getString("ISBN");
+    //             String title = resultSet.getString("Title");
+    //             String author = resultSet.getString("Author");
 
-                System.out.println("Book ID: " + id);
-                System.out.println("ISBN: " + isbn);
-                System.out.println("Title: " + title);
-                System.out.println("Author: " + author);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+    //             System.out.println("Book ID: " + id);
+    //             System.out.println("ISBN: " + isbn);
+    //             System.out.println("Title: " + title);
+    //             System.out.println("Author: " + author);
+    //         }
+    //     } catch (SQLException e) {
+    //         e.printStackTrace();
+    //     }
+    // }
 
-    public void getByID(int bookID) {
-        try {
-            String query = "SELECT * FROM books WHERE bookID = ?";
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, bookID);
-            ResultSet resultSet = statement.executeQuery();
+    // public void getByID(int bookID) {
+    //     try {
+    //         String query = "SELECT * FROM books WHERE bookID = ?";
+    //         PreparedStatement statement = connection.prepareStatement(query);
+    //         statement.setInt(1, bookID);
+    //         ResultSet resultSet = statement.executeQuery();
 
-            // Process the result set and display the book information
-            while (resultSet.next()) {
-                int id = resultSet.getInt("bookID");
-                String isbn = resultSet.getString("ISBN");
-                String title = resultSet.getString("Title");
-                String author = resultSet.getString("Author");
+    //         // Process the result set and display the book information
+    //         while (resultSet.next()) {
+    //             int id = resultSet.getInt("bookID");
+    //             String isbn = resultSet.getString("ISBN");
+    //             String title = resultSet.getString("Title");
+    //             String author = resultSet.getString("Author");
 
-                System.out.println("Book ID: " + id);
-                System.out.println("ISBN: " + isbn);
-                System.out.println("Title: " + title);
-                System.out.println("Author: " + author);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+    //             System.out.println("Book ID: " + id);
+    //             System.out.println("ISBN: " + isbn);
+    //             System.out.println("Title: " + title);
+    //             System.out.println("Author: " + author);
+    //         }
+    //     } catch (SQLException e) {
+    //         e.printStackTrace();
+    //     }
+    // }
 
-    public void getByTitle(String title) {
-        try {
-            String query = "SELECT * FROM books WHERE Title LIKE ?";
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, "%" + title + "%");
-            ResultSet resultSet = statement.executeQuery();
+    // public void getByTitle(String title) {
+    //     try {
+    //         String query = "SELECT * FROM books WHERE Title LIKE ?";
+    //         PreparedStatement statement = connection.prepareStatement(query);
+    //         statement.setString(1, "%" + title + "%");
+    //         ResultSet resultSet = statement.executeQuery();
 
-            // Process the result set and display the book information
-            while (resultSet.next()) {
-                int id = resultSet.getInt("bookID");
-                String isbn = resultSet.getString("ISBN");
-                String Title = resultSet.getString("Title");
-                String author = resultSet.getString("Author");
+    //         // Process the result set and display the book information
+    //         while (resultSet.next()) {
+    //             int id = resultSet.getInt("bookID");
+    //             String isbn = resultSet.getString("ISBN");
+    //             String Title = resultSet.getString("Title");
+    //             String author = resultSet.getString("Author");
 
-                System.out.println("Book ID: " + id);
-                System.out.println("ISBN: " + isbn);
-                System.out.println("Title: " + Title);
-                System.out.println("Author: " + author);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+    //             System.out.println("Book ID: " + id);
+    //             System.out.println("ISBN: " + isbn);
+    //             System.out.println("Title: " + Title);
+    //             System.out.println("Author: " + author);
+    //         }
+    //     } catch (SQLException e) {
+    //         e.printStackTrace();
+    //     }
+    // }
 
-    public void getByAuthor(String author) {
-        try {
-            String query = "SELECT * FROM books WHERE Author LIKE ?";
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, "%" + author + "%");
-            ResultSet resultSet = statement.executeQuery();
+    // public void getByAuthor(String author) {
+    //     try {
+    //         String query = "SELECT * FROM books WHERE Author LIKE ?";
+    //         PreparedStatement statement = connection.prepareStatement(query);
+    //         statement.setString(1, "%" + author + "%");
+    //         ResultSet resultSet = statement.executeQuery();
 
-            // Process the result set and display the book information
-            while (resultSet.next()) {
-                int id = resultSet.getInt("bookID");
-                String isbn = resultSet.getString("ISBN");
-                String title = resultSet.getString("Title");
-                String Author = resultSet.getString("Author");
+    //         // Process the result set and display the book information
+    //         while (resultSet.next()) {
+    //             int id = resultSet.getInt("bookID");
+    //             String isbn = resultSet.getString("ISBN");
+    //             String title = resultSet.getString("Title");
+    //             String Author = resultSet.getString("Author");
 
-                System.out.println("Book ID: " + id);
-                System.out.println("ISBN: " + isbn);
-                System.out.println("Title: " + title);
-                System.out.println("Author: " + Author);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+    //             System.out.println("Book ID: " + id);
+    //             System.out.println("ISBN: " + isbn);
+    //             System.out.println("Title: " + title);
+    //             System.out.println("Author: " + Author);
+    //         }
+    //     } catch (SQLException e) {
+    //         e.printStackTrace();
+    //     }
+    // }
 
-    public void deleteBook() {
-        try {
-            String query = "DELETE FROM books WHERE bookID = ?";
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, bookID);
-            int rowsAffected = statement.executeUpdate();
-            if (rowsAffected > 0) {
-                System.out.println("Book deleted successfully!");
-            } else {
-                System.out.println("Book not found with the given ID.");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+    // public void deleteBook() {
+    //     try {
+    //         String query = "DELETE FROM books WHERE bookID = ?";
+    //         PreparedStatement statement = connection.prepareStatement(query);
+    //         statement.setInt(1, bookID);
+    //         int rowsAffected = statement.executeUpdate();
+    //         if (rowsAffected > 0) {
+    //             System.out.println("Book deleted successfully!");
+    //         } else {
+    //             System.out.println("Book not found with the given ID.");
+    //         }
+    //     } catch (SQLException e) {
+    //         e.printStackTrace();
+    //     }
+    // }
 }
 }

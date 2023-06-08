@@ -86,7 +86,7 @@ public class Login{
                             stmt.setString(2, adminPassword);
                             ResultSet rs = stmt.executeQuery();
                             if (rs.next()) {
-                                System.out.println("\nWelcome, " + rs.getString("name") + " (Admin)!");
+                                System.out.println("\nWelcome, " + rs.getString("username") + " (Admin)!");
 
                                 //call the admin panel here.
                                 admin.adminPanel();
