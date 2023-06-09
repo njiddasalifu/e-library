@@ -163,7 +163,7 @@ public class Books {
             statement.setString(1, "%" + author + "%");
             ResultSet resultSet = statement.executeQuery();
 
-            //Process the result set and display the book information
+            // Process the result set and display the book information
             while (resultSet.next()) {
                 int id = resultSet.getInt("bookID");
                 String isbn = resultSet.getString("ISBN");
@@ -199,4 +199,89 @@ public class Books {
             e.printStackTrace();
         }
     }
+
+    private void updateBook(Books book) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/books", "root",
+                "salifu")) {
+            String query = "UPDATE books SET quantity = ?, status = ? WHERE bookID = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, book.getQuantity());
+            statement.setString(2, book.getStatus());
+            statement.setInt(3, book.getBookID());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error updating book: " + e.getMessage());
+        }
+    }
+
+    // Function to get the book status from the database
+    public String getBookStatus(int bookID) {
+        String status = "";
+
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/books", "root",
+                "salifu")) {
+            String query = "SELECT status FROM books WHERE bookID = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, bookID);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                status = resultSet.getString("status");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error retrieving book status: " + e.getMessage());
+        }
+
+        return status;
+    }
+
+    // Function to get the book quantity from the database
+    public int getBookQuantity(int bookID) {
+        int quantity = 0;
+
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/books", "root",
+                "salifu")) {
+            String query = "SELECT quantity FROM books WHERE bookID = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, bookID);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                quantity = resultSet.getInt("quantity");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error retrieving book quantity: " + e.getMessage());
+        }
+
+        return quantity;
+    }
+
+    // Function to update the book's quantity in the database
+    public void updateBookQuantity(int bookID, int quantity) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/books", "root",
+                "salifu")) {
+            String query = "UPDATE books SET quantity = ? WHERE bookID = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, quantity);
+            statement.setInt(2, bookID);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error updating book quantity: " + e.getMessage());
+        }
+    }
+
+    // Function to update the book's status in the database
+    public void updateBookStatus(int bookID, String status) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/books", "root",
+                "salifu")) {
+            String query = "UPDATE books SET status = ? WHERE bookID = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, status);
+            statement.setInt(2, bookID);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error updating book status: " + e.getMessage());
+        }
+    }
+
 }
