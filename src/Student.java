@@ -1,7 +1,7 @@
 
 
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.*;
 import java.sql.*;
 
@@ -162,6 +162,52 @@ public class Student {
 
 
 
+    // Borrow Book
+    public void borrowBook() {
+    Scanner scanner = new Scanner(System.in);
+
+    System.out.println("Enter the title of the book you want to borrow:");
+    String bookTitle = scanner.nextLine();
+
+    try (Connection conn = stdb.getConnection()) {
+        // Check if the book exists and is available for borrowing
+        String availabilityQuery = "SELECT * FROM books WHERE Title = ? AND Availability = 'Available'";
+        PreparedStatement availabilityStatement = conn.prepareStatement(availabilityQuery);
+        availabilityStatement.setString(1, bookTitle);
+        ResultSet availabilityResult = availabilityStatement.executeQuery();
+
+        if (availabilityResult.next()) {
+            // Book is available for borrowing, proceed with borrowing logic
+
+            // Insert the borrow record into the borrow table
+            String borrowQuery = "INSERT INTO borrow (StudentID, BookID, BorrowDate) VALUES (?, ?, ?)";
+            PreparedStatement borrowStatement = conn.prepareStatement(borrowQuery);
+            borrowStatement.setInt(1, this.StudentID);  
+            borrowStatement.setInt(2, availabilityResult.getInt("BookID"));  
+            borrowStatement.setDate(3, new Date(System.currentTimeMillis()));  // Set the current date as the borrow date
+            borrowStatement.executeUpdate();
+
+            // Update the book availability to 'Borrowed'
+            String updateAvailabilityQuery = "UPDATE books SET Availability = 'Borrowed' WHERE BookID = ?";
+            PreparedStatement updateAvailabilityStatement = conn.prepareStatement(updateAvailabilityQuery);
+            updateAvailabilityStatement.setInt(1, availabilityResult.getInt("BookID"));
+            updateAvailabilityStatement.executeUpdate();
+
+            System.out.println("Book borrowed successfully.");
+        } else {
+            System.out.println("The requested book is not available for borrowing.");
+        }
+
+        availabilityResult.close();
+        availabilityStatement.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
+
+
+
     // The student PAnel
 
     public void StudentPanel() {
@@ -185,6 +231,7 @@ public class Student {
                         break;
                     case 2:
                         // Handle borrowing logic
+                        borrowBook();
                         break;
                     case 3:
                         // Handle borrow status view logic
