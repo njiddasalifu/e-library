@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class LibrarianPanel {
     //this is the object reference to the database connection
     DBconnection db = new DBconnection();
-    Books book = new Books();
+    // Books book = new Books();
 
     public void showPanel() {
         boolean exit = false;
@@ -28,7 +28,7 @@ public class LibrarianPanel {
                         // book.findAllBooks();
                         break;
                     case 2:
-                        book.create();
+                        // book.create();
                         break;
                     case 3:
                         // book.deleteBook();
