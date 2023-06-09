@@ -1,6 +1,4 @@
 
-
-
 import java.util.Date;
 import java.util.*;
 import java.sql.*;
@@ -14,12 +12,13 @@ public class Student {
     private String password;
     private String username;
 
-    // public Student(String StudentID, String Name, String Interest, String Phone, String Address, String username , String password ){
-    //     this.StudentID = StudentID;
-    //     this.Name = Name;
-    //     this.Interest = Interest;
-    //     this.Phone = Phone;
-    //     this.Address = Address;
+    // public Student(String StudentID, String Name, String Interest, String Phone,
+    // String Address, String username , String password ){
+    // this.StudentID = StudentID;
+    // this.Name = Name;
+    // this.Interest = Interest;
+    // this.Phone = Phone;
+    // this.Address = Address;
     // }
 
     public int getSID() {
@@ -41,7 +40,6 @@ public class Student {
     public String getusername() {
         return username;
     }
-
 
     public String getpassword() {
         return password;
@@ -79,8 +77,7 @@ public class Student {
         this.Address = Address;
     }
 
-
-    public void StudentRegistration(){
+    public void StudentRegistration() {
         StudentsDBConnection stdb = new StudentsDBConnection();
 
         Scanner sc = new Scanner(System.in);
@@ -97,7 +94,7 @@ public class Student {
 
         System.out.println("Enter the Student Address");
         String Address = sc.nextLine();
-       
+
         System.out.println("Enter the Student Interest");
         String Interest = sc.nextLine();
 
@@ -107,27 +104,24 @@ public class Student {
         System.out.println("Enter the Student password");
         String password = sc.nextLine();
 
-
         // Working with the data from students
 
         try (Connection conn = stdb.getConnection()) {
             String query = "INSERT INTO students (studentName, Email, Address, Phone, Interest, password, username) VALUES (?,?,?,?,?,?,?)";
 
             PreparedStatement stmt = conn.prepareStatement(query);
-                stmt.setString(1, Name);
-                stmt.setString(2, Phone);
-                stmt.setString(3, Email);
-                stmt.setString(4, Address);
-                stmt.setString(5, Interest);
-                stmt.setString(6, username);
-                stmt.setString(7, password);
-                int rowsAffected = stmt.executeUpdate();
-                System.out.println(username + "your data were added successfully!");
-        }catch(SQLException ex){
+            stmt.setString(1, Name);
+            stmt.setString(2, Phone);
+            stmt.setString(3, Email);
+            stmt.setString(4, Address);
+            stmt.setString(5, Interest);
+            stmt.setString(6, username);
+            stmt.setString(7, password);
+            int rowsAffected = stmt.executeUpdate();
+            System.out.println(username + "your data were added successfully!");
+        } catch (SQLException ex) {
             System.out.println("Error: " + ex.getMessage());
         }
-
-        
 
     }
 }
