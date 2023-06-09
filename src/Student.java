@@ -17,8 +17,9 @@ public class Student {
 
 
     // Creating connection object
+    DBconnection db = new DBconnection();
 
-    StudentsDBConnection stdb = new StudentsDBConnection();
+    // StudentsDBConnection stdb = new StudentsDBConnection();
 
 
     public int getSID() {
@@ -108,7 +109,7 @@ public class Student {
 
         // Working with the data from students
 
-        try (Connection conn = stdb.getConnection()) {
+        try (Connection conn = db.getConnection()) {
             String query = "INSERT INTO students (Name, phone, email, Address, Interest, username, password) VALUES (?,?,?,?,?,?,?)";
 
             PreparedStatement stmt = conn.prepareStatement(query);
@@ -133,7 +134,7 @@ public class Student {
     // Faunction to view all Books in the Library
     public void ViewBooks() {
         
-        try (Connection conn = stdb.getConnection()){
+        try (Connection conn = db.getConnection()){
             Statement statement = conn.createStatement();
             // Execute the query to retrieve all books
             String query = "SELECT * FROM books";
@@ -169,7 +170,7 @@ public class Student {
     System.out.println("Enter the title of the book you want to borrow:");
     String bookTitle = scanner.nextLine();
 
-    try (Connection conn = stdb.getConnection()) {
+    try (Connection conn = db.getConnection()) {
         // Check if the book exists and is available for borrowing
         String availabilityQuery = "SELECT * FROM books WHERE Title = ? AND Availability = 'Available'";
         PreparedStatement availabilityStatement = conn.prepareStatement(availabilityQuery);
