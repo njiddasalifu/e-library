@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.*;
 import java.sql.*;
 
+
 public class Student {
     private int StudentID;
     private String Name;
@@ -14,13 +15,11 @@ public class Student {
     private String password;
     private String username;
 
-    // public Student(String StudentID, String Name, String Interest, String Phone, String Address, String username , String password ){
-    //     this.StudentID = StudentID;
-    //     this.Name = Name;
-    //     this.Interest = Interest;
-    //     this.Phone = Phone;
-    //     this.Address = Address;
-    // }
+
+    // Creating connection object
+
+    StudentsDBConnection stdb = new StudentsDBConnection();
+
 
     public int getSID() {
         return StudentID;
@@ -80,9 +79,8 @@ public class Student {
     }
 
 
+    
     public void StudentRegistration(){
-        StudentsDBConnection stdb = new StudentsDBConnection();
-
         Scanner sc = new Scanner(System.in);
 
         // collecting data from students
@@ -111,7 +109,7 @@ public class Student {
         // Working with the data from students
 
         try (Connection conn = stdb.getConnection()) {
-            String query = "INSERT INTO students (studentName, Email, Address, Phone, Interest, password, username) VALUES (?,?,?,?,?,?,?)";
+            String query = "INSERT INTO students (Name, phone, email, Address, Interest, username, password) VALUES (?,?,?,?,?,?,?)";
 
             PreparedStatement stmt = conn.prepareStatement(query);
                 stmt.setString(1, Name);
@@ -122,7 +120,7 @@ public class Student {
                 stmt.setString(6, username);
                 stmt.setString(7, password);
                 int rowsAffected = stmt.executeUpdate();
-                System.out.println(username + "your data were added successfully!");
+                System.out.println(username + "" + "your data were added successfully!");
         }catch(SQLException ex){
             System.out.println("Error: " + ex.getMessage());
         }
@@ -130,4 +128,81 @@ public class Student {
         
 
     }
+
+
+    // Faunction to view all Books in the Library
+    public void ViewBooks() {
+        
+        try (Connection conn = stdb.getConnection()){
+            Statement statement = conn.createStatement();
+            // Execute the query to retrieve all books
+            String query = "SELECT * FROM books";
+            ResultSet resultSet = statement.executeQuery(query);
+            
+            // Iterate over the result set and display the books
+            while (resultSet.next()) {
+                String isbn = resultSet.getString("ISBN");
+                String author = resultSet.getString("Author");
+                String title = resultSet.getString("Title");
+                
+                System.out.println("Title: " + title);
+                System.out.println("Author: " + author);
+                System.out.println("Title: " + isbn);
+                System.out.println("--------------------");
+            }
+            
+            // Close the result set, statement, and connection
+            resultSet.close();
+            statement.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    // The student PAnel
+
+    public void StudentPanel() {
+        boolean exit = false;
+        Scanner scanner = new Scanner(System.in);
+        
+        while (!exit) {
+            System.out.println("1. View all books");
+            System.out.println("2. Borrow a Book");
+            System.out.println("3. View Your borrow status");
+            System.out.println("4. Logout");
+            
+            try {
+                int choice = scanner.nextInt();
+                scanner.nextLine(); // consume newline character
+                
+                switch (choice) {
+                    case 1:
+                        // book.ViewAllBooks();
+                        ViewBooks();
+                        break;
+                    case 2:
+                        // Handle borrowing logic
+                        break;
+                    case 3:
+                        // Handle borrow status view logic
+                        break;
+                    case 4:
+                        exit = true;
+                        break;
+                    default:
+                        System.out.println("Invalid choice.");
+                        break;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid integer choice.");
+                scanner.nextLine(); // consume the invalid input
+            }
+        }
+        
+        scanner.close();
+    }
+
 }

@@ -6,6 +6,7 @@ public class Login{
 
     DBconnection db = new DBconnection();
     LibrarianPanel lb = new LibrarianPanel();
+    
     Student st = new Student();
 
     Admin admin = new Admin();
@@ -38,6 +39,7 @@ public class Login{
                                 System.out.println("\nWelcome, " + rs.getString("name") + " (Student)!");
                                 
                                 //call the student panel here
+                                st.StudentPanel();
                             } else {
                                 System.out.println("Invalid username or password.");
                                 System.out.println("Please Register to access the Library");
