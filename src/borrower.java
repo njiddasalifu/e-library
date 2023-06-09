@@ -1,8 +1,8 @@
 // import java.sql.*;
 // import java.util.Scanner;
 
-// class borrower extends user {
-//     BooksDBconnection db = new BooksDBconnection();
+// class borrower {
+//     DBconnection db = new DBconnection();
 
 //     private void viewAllBorrowers() {
 //         try (Connection conn = db.getConnection()) {
