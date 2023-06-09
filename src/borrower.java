@@ -1,70 +1,56 @@
 import java.sql.*;
-import java.util.Scanner;
+import java.time.LocalDate;
 
-class borrower {
-    DBconnection db = new DBconnection();
+public class Borrower {
 
-    private void viewAllBorrowers() {
-        try (Connection conn = db.getConnection()) {
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM borrowers");
-            System.out.println("All borrowers:");
-            System.out.println("ID\tName\t\t\tEmail\t\t\tPhone Number\tAddress");
-            while (rs.next()) {
-                System.out.println(rs.getInt("id") + "\t" + rs.getString("name") + "\t\t"
-                        + rs.getString("email") + "\t" + rs.getString("phone_number") + "\t"
-                        + rs.getString("address"));
-            }
-        } catch (SQLException ex) {
-            System.out.println("Error: " + ex.getMessage());
+    // ...
+    Books book = new Books();
+
+    private void addBorrower(int studentID, int bookID, LocalDate borrowDate, LocalDate returnDate) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/books", "root",
+                "salifu")) {
+            String query = "INSERT INTO borrower (StudentID, BookID, BorrowDate, ReturnDate) VALUES (?, ?, ?, ?)";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, studentID);
+            statement.setInt(2, bookID);
+            statement.setDate(3, Date.valueOf(borrowDate));
+            statement.setDate(4, Date.valueOf(returnDate));
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error adding borrower: " + e.getMessage());
         }
     }
 
-    private void addBorrower() {
-        try (Scanner scanner = new Scanner(System.in); Connection conn = db.getConnection()) {
-            System.out.print("Borrower name: ");
-            String name = scanner.nextLine();
-            System.out.print("Borrower email: ");
-            String email = scanner.nextLine();
-            System.out.print("Borrower phone number: ");
-            String phoneNumber = scanner.nextLine();
-            System.out.print("Borrower address: ");
-            String address = scanner.nextLine();
+    public void borrowBook(int bookID, int studentID, LocalDate borrowDate, LocalDate returnDate) {
+        // Check if the book is available
+        if (book.getBookQuantity(bookID) > 0 && book.getBookStatus(bookID).equalsIgnoreCase("available")) {
+            // Decrement the book quantity by one
+            int newQuantity = book.getBookQuantity(bookID) - 1;
+            book.updateBookQuantity(bookID, newQuantity);
 
-            String query = "INSERT INTO borrowers (name, email, phone_number, address) VALUES (?, ?, ?, ?)";
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, name);
-            stmt.setString(2, email);
-            stmt.setString(3, phoneNumber);
-            stmt.setString(4, address);
-            int result = stmt.executeUpdate();
-            if (result > 0) {
-                System.out.println("Borrower added successfully.");
-            } else {
-                System.out.println("Failed to add borrower.");
+            // If the book quantity reaches zero, update the status to "unavailable"
+            if (newQuantity == 0) {
+                book.updateBookStatus(bookID, "unavailable");
             }
-        } catch (SQLException ex) {
-            System.out.println("Error: " + ex.getMessage());
+
+            // Add the borrower to the borrower table
+            addBorrower(studentID, bookID, borrowDate, returnDate);
+
+            System.out.println("Book borrowed successfully!");
+        } else {
+            System.out.println("The book is not available for borrowing.");
         }
     }
 
-    private void removeBorrower() {
-        try (Scanner scanner = new Scanner(System.in); Connection conn = db.getConnection()) {
-            System.out.print("Borrower ID: ");
-            int borrowerId = scanner.nextInt();
-            scanner.nextLine(); // consume newline character
+    public void returnBook(int bookID) {
+        // Increment the book quantity by one
+        book.updateBookQuantity(bookID, book.getBookQuantity(bookID) + 1);
 
-            String query = "DELETE FROM borrowers WHERE id = ?";
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setInt(1, userID);
-            int result = stmt.executeUpdate();
-            if (result > 0) {
-                System.out.println("Borrower removed successfully.");
-            } else {
-                System.out.println("Failed to remove borrower.");
-            }
-        } catch (SQLException ex) {
-            System.out.println("Error: " + ex.getMessage());
+        // If the book quantity was zero, update the status to "available"
+        if (book.getQuantity() == 1) {
+            book.updateBookStatus(bookID, "available");
         }
+        System.out.println("Book returned successfully!");
     }
+
 }

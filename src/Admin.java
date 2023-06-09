@@ -4,8 +4,8 @@ import java.sql.*;
 public class Admin {
     
     DBconnection db = new DBconnection();
-    
-    public void registerLibrarian() {
+
+    public void register() {
         try (Scanner scanner = new Scanner(System.in)) {
             System.out.print("Name: ");
             String name = scanner.nextLine();
@@ -17,20 +17,19 @@ public class Admin {
             String username = scanner.nextLine();
             System.out.print("Password: ");
             String password = scanner.nextLine();
-   
-            try (Connection conn = db.getConnection()) {
-                String query = "INSERT INTO librarians (name, email, phone, username, password) VALUES (?, ?, ?, ?, ?)";
-                PreparedStatement stmt = conn.prepareStatement(query);
-                stmt.setString(1, name);
-                stmt.setString(2, email);
-                stmt.setString(3, phone);
-                stmt.setString(4, username);
-                stmt.setString(5, password);
-                int rowsAffected = stmt.executeUpdate();
-                System.out.println(rowsAffected + " row(s) inserted successfully.");
-            } catch (SQLException ex) {
-                System.out.println("Error: " + ex.getMessage());
-            }
+            
+            Connection conn = db.getConnection();
+            String query = "INSERT INTO librarians (name, email, phone, username, password) VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, name);
+            stmt.setString(2, email);
+            stmt.setString(3, phone);
+            stmt.setString(4, username);
+            stmt.setString(5, password);
+            int rowsAffected = stmt.executeUpdate();
+            System.out.println(rowsAffected + " librarian registered successfully.");
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
         }
     }
 
@@ -59,11 +58,13 @@ public class Admin {
    
             switch (choice) {
                 case 1:
-                    registerLibrarian();
+                register();
                     break;
                 case 2:
                     deleteLibrarian();
                     break;
+                case 3:
+                    adminPanel();
                 default:
                     System.out.println("Invalid choice.");
                     break;
