@@ -163,7 +163,7 @@ public class Books {
             statement.setString(1, "%" + author + "%");
             ResultSet resultSet = statement.executeQuery();
 
-            // Process the result set and display the book information
+            //Process the result set and display the book information
             while (resultSet.next()) {
                 int id = resultSet.getInt("bookID");
                 String isbn = resultSet.getString("ISBN");

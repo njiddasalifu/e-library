@@ -6,3 +6,12 @@ CREATE TABLE books (
     status VARCHAR(255) DEFAULT 'available',
     quantity INT NOT NULL
 );
+CREATE TABLE borrowers (
+  borrowerID SERIAL PRIMARY KEY,
+  studentID INT NOT NULL,
+  bookID INT NOT NULL,
+  borrowDate DATE NOT NULL,
+  returnDate DATE NOT NULL,
+  FOREIGN KEY (studentID) REFERENCES users.students (studentID),
+  FOREIGN KEY (bookID) REFERENCES books (bookID)
+);
