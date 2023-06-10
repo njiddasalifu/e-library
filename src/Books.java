@@ -2,25 +2,25 @@
 // import java.sql.*;
 
 // public class Books {
+//     DBconnection db = new DBconnection();
 //     // Different attributes of a book
 //     private int bookID;
 //     private String ISBN;
 //     private String title;
 //     private String author;
-//     private String status;
 //     private int quantity;
 //     private Connection connection;
 //     // private DBconnection db = new DBconnection();
 
 //     public Books() {
-//         try {
-//             String url = "jdbc:postgresql://localhost:3306/books";
-//             String username = "postgres";
-//             String password = "bItO2002";
-//             connection = DriverManager.getConnection(url, username, password);
-//         } catch (SQLException e) {
-//             e.printStackTrace();
-//         }
+//         // try {
+//         //     String url = "jdbc:postgresql://localhost:3306/books";
+//         //     String username = "postgres";
+//         //     String password = "bItO2002";
+//         //     connection = DriverManager.getConnection(url, username, password);
+//         // } catch (SQLException e) {
+//         //     e.printStackTrace();
+//         // }
 //     }
 
 //     public int getBookID() {
@@ -39,10 +39,6 @@
 //         return author;
 //     }
 
-//     public String getStatus() {
-//         return status;
-//     }
-
 //     public int getQuantity() {
 //         return quantity;
 //     }
@@ -55,28 +51,28 @@
 //             title = scanner.nextLine();
 //             System.out.print("Author: ");
 //             author = scanner.nextLine();
-//             System.out.print("Status: ");
-//             status = scanner.nextLine();
 //             System.out.print("Quantity: ");
 //             quantity = scanner.nextInt();
 
-//             String query = "INSERT INTO books (ISBN, Title, Author, Status, Quantity) VALUES (?, ?, ?, ?, ?)";
-//             PreparedStatement statement = connection.prepareStatement(query);
+//             Connection conn = db.getConnection();
+//             String query = "INSERT INTO books (ISBN, Title, Author, Quantity) VALUES (?, ?, ?, ?)";
+//             PreparedStatement statement = conn.prepareStatement(query);
 //             statement.setString(1, ISBN);
 //             statement.setString(2, title);
 //             statement.setString(3, author);
-//             statement.setString(4, status);
-//             statement.setInt(5, quantity);
+//             statement.setInt(4, quantity);
 //             statement.executeUpdate();
+//             int rowsAffected = statement.executeUpdate();
+//             System.out.println(rowsAffected + " Book added successfully.");
 //         } catch (SQLException e) {
 //             e.printStackTrace();
 //         }
 //     }
 
 //     public void findAllBooks() {
-//         try {
+//         try(Connection conn = db.getConnection()) {
 //             String query = "SELECT * FROM books";
-//             PreparedStatement statement = connection.prepareStatement(query);
+//             PreparedStatement statement = conn.prepareStatement(query);
 //             ResultSet resultSet = statement.executeQuery();
 
 //             // Process the result set and display the book information
@@ -85,14 +81,12 @@
 //                 String isbn = resultSet.getString("ISBN");
 //                 String title = resultSet.getString("Title");
 //                 String author = resultSet.getString("Author");
-//                 String status = resultSet.getString("Status");
 //                 int quantity = resultSet.getInt("Quantity");
 
 //                 System.out.println("Book ID: " + id);
 //                 System.out.println("ISBN: " + isbn);
 //                 System.out.println("Title: " + title);
 //                 System.out.println("Author: " + author);
-//                 System.out.println("Status: " + status);
 //                 System.out.println("Quantity: " + quantity);
 //             }
 //         } catch (SQLException e) {
@@ -184,11 +178,11 @@
 //         }
 //     }
 
-//     public void deleteBook(int bookID) {
+//     public void deleteBook() {
 //         try {
-//             String query = "DELETE FROM books WHERE bookID = ?";
+//             String query = "DELETE FROM books WHERE title = ?";
 //             PreparedStatement statement = connection.prepareStatement(query);
-//             statement.setInt(1, bookID);
+//             statement.setString(1, title);
 //             int rowsAffected = statement.executeUpdate();
 //             if (rowsAffected > 0) {
 //                 System.out.println("Book deleted successfully!");
