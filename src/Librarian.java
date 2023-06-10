@@ -3,15 +3,14 @@ import java.util.Scanner;
 import java.sql.*;
 
 
-public class LibrarianPanel {
+public class Librarian {
     //this is the object reference to the database connection
     DBconnection db = new DBconnection();
     //  Books book = new Books();
     Book book = new Book();
 
     public void showPanel() {
-        boolean exit = false;
-        while (!exit) {
+    
 
             System.out.println("1. View all books");
             System.out.println("2. Add a book");
@@ -23,8 +22,12 @@ public class LibrarianPanel {
 
             try (Scanner scanner = new Scanner(System.in)) {
                 int choice = scanner.nextInt();
-                scanner.nextLine(); // consume newline character
-
+            scanner.nextLine(); // consume the remaining newline character
+            if (choice == 7){
+                System.out.println("Exiting program...");
+                System.exit(0);
+                
+            }
                 switch (choice) {
                     case 1:
                         // book.findAllBooks();
@@ -44,14 +47,10 @@ public class LibrarianPanel {
                     case 6:
                         // removeBorrower();
                         break;
-                    case 7:
-                        exit = true;
-                        break;
-                    default:
+                        default:
                         System.out.println("Invalid choice.");
                         break;
                 }
             }
-        }
     }
 }

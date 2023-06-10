@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Login {
     DBconnection db = new DBconnection();
     Student student = new Student();
-     LibrarianPanel librarian = new LibrarianPanel();
+     Librarian librarian = new Librarian();
      Admin admin = new Admin();
     
     public void login() {
