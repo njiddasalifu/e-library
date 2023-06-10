@@ -9,6 +9,7 @@ public class Librarian {
     Student student = new Student();
     //  Books book = new Books();
     Book book = new Book();
+    Login login = new Login();
 
     public void showPanel() {
     
@@ -48,6 +49,8 @@ public class Librarian {
                     case 6:
                         book.imposeFine();
                         break;
+                    case 7:
+                        login.login();
                         default:
                         System.out.println("Invalid choice.");
                         break;

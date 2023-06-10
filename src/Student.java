@@ -20,6 +20,7 @@ public class Student {
     // Creating connection object
     DBconnection db = new DBconnection();
     Book book = new Book();
+    Login login = new Login();
 
     // StudentsDBConnection stdb = new StudentsDBConnection();
 
@@ -298,7 +299,7 @@ public class Student {
                         book.returnBook();
                         break;
                     case 6:
-                        exit = true;
+                        login.login();
                         break;
                     default:
                         System.out.println("Invalid choice.");
