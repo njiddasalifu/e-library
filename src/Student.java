@@ -1,9 +1,10 @@
 
 
 
-import java.sql.Date;
+import java.sql.Date.*;
 import java.util.*;
 import java.sql.*;
+import java.time.*;
 
 
 public class Student {
@@ -162,7 +163,7 @@ public class Student {
         }
     }
 
-
+    Scanner scanner = new Scanner(System.in);
 
     // Borrow Book
     public void borrowBook() {
@@ -211,7 +212,51 @@ public class Student {
         e.printStackTrace();
     }
 }
+  
+    // see transactions
+    public void viewTransactionHistory() {
+        System.out.println("Enter the student ID to view the transaction history of the student");
+        int studentId = scanner.nextInt();
+        try(Connection conn = db.getConnection()) {
+            String sql = "SELECT * FROM transactions WHERE student_id=?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, studentId);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int bookId = rs.getInt("book_id");
+                LocalDate issueDate = rs.getObject("issue_date", LocalDate.class);
+                LocalDate dueDate = rs.getObject("due_date", LocalDate.class);
+                LocalDate returnDate = rs.getObject("return_date", LocalDate.class);
+                boolean returned = rs.getBoolean("returned");
+                String status = returned ? "Returned" : "Not Returned";
+                System.out.println("Transaction ID: " + id);
+                System.out.println("Book ID: " + bookId);
+                System.out.println("Issue Date: " + issueDate);
+                System.out.println("Due Date: " + dueDate);
+                System.out.println("Return Date: " + returnDate);
+                System.out.println("Status: " + status);
 
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //dismissing a student
+    public void deleteStudent() {
+        System.out.println("Enter the student ID to dismiss:");
+        int studentId = scanner.nextInt();
+        try(Connection conn = db.getConnection()) {
+            String sql = "DELETE FROM students WHERE id=?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, studentId);
+            pstmt.executeUpdate();
+            System.out.println("Student deleted successfully");
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
 
 
 
@@ -244,10 +289,10 @@ public class Student {
             
                         break;
                     case 3:
-                        // Handle borrow status view logic
+                        book.reserveBook();
                         break;
                     case 4:
-                        book.reserveBook();
+                        viewTransactionHistory();                        
                     break;
                     case 5:
                         book.returnBook();

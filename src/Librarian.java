@@ -17,7 +17,7 @@ public class Librarian {
             System.out.println("2. Add a book");
             System.out.println("3. Remove a book");
             System.out.println("4. View all borrowers");
-            System.out.println("5. Add a borrower");
+            System.out.println("5. Dismiss Student");
             System.out.println("6. Remove a borrower");
             System.out.println("7. Logout");
 
@@ -40,10 +40,10 @@ public class Librarian {
                         book.deleteBook();
                         break;
                     case 4:
-                        // viewAllBorrowers();
+                        student.viewTransactionHistory();
                         break;
                     case 5:
-                        book.returnBook();
+                        student.deleteStudent();
                         break;
                     case 6:
                         // removeBorrower();
