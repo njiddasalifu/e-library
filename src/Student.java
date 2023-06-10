@@ -121,7 +121,7 @@ public class Student {
                 stmt.setString(6, username);
                 stmt.setString(7, password);
                 int rowsAffected = stmt.executeUpdate();
-                System.out.println(username + "" + "your data were added successfully!");
+                System.out.println(username + " " + " you have registered successfully!");
         }catch(SQLException ex){
             System.out.println("Error: " + ex.getMessage());
         }

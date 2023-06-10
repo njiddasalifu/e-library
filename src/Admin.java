@@ -36,13 +36,13 @@ public class Admin {
     //deleting a librarian
     public void deleteLibrarian() {
         try (Scanner scanner = new Scanner(System.in)) {
-            System.out.print("Enter the ID of the librarian to delete: ");
-            int id = scanner.nextInt();
+            System.out.print("Enter the username of the librarian to delete: ");
+            String username = scanner.nextLine();
    
             try (Connection conn = db.getConnection()) {
-                String query = "DELETE FROM librarians WHERE id = ?";
+                String query = "DELETE FROM librarians WHERE username = ?";
                 PreparedStatement stmt = conn.prepareStatement(query);
-                stmt.setInt(1, id);
+                stmt.setString(1, username);
                 int rowsAffected = stmt.executeUpdate();
                 System.out.println(rowsAffected + " row(s) deleted successfully.");
             } catch (SQLException ex) {
