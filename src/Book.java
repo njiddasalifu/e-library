@@ -108,6 +108,24 @@ public void returnBook() {
 }
 
 
+//imposing fine 
+public void imposeFine() {
+    System.out.println("Enter transaction ID to calculate fine.");
+    int transactionId = scanner.nextInt();
+    System.out.println("Enter fine amount.");
+    int fineAmount = scanner.nextInt();
+    try(Connection conn = db.getConnection()) {
+        String sql = "UPDATE transactions SET fine_amount=? WHERE id=?";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setDouble(1, fineAmount);
+        pstmt.setInt(2, transactionId);
+        pstmt.executeUpdate();
+        System.out.println("Fine imposed successfully");
+    } catch (SQLException e) {
+        System.out.println("Error: " + e.getMessage());
+    }
+}
+
 // reserving a book
 public void reserveBook() {
     System.out.println("Enter your StudentID");

@@ -18,7 +18,7 @@ public class Librarian {
             System.out.println("3. Remove a book");
             System.out.println("4. View all borrowers");
             System.out.println("5. Dismiss Student");
-            System.out.println("6. Remove a borrower");
+            System.out.println("6. Impose fine");
             System.out.println("7. Logout");
 
             try (Scanner scanner = new Scanner(System.in)) {
@@ -46,7 +46,7 @@ public class Librarian {
                         student.deleteStudent();
                         break;
                     case 6:
-                        // removeBorrower();
+                        book.imposeFine();
                         break;
                         default:
                         System.out.println("Invalid choice.");
