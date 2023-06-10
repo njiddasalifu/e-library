@@ -18,6 +18,7 @@ public class Student {
 
     // Creating connection object
     DBconnection db = new DBconnection();
+    Book book = new Book();
 
     // StudentsDBConnection stdb = new StudentsDBConnection();
 
@@ -181,12 +182,17 @@ public class Student {
             // Book is available for borrowing, proceed with borrowing logic
 
             // Insert the borrow record into the borrow table
-            String borrowQuery = "INSERT INTO borrow (StudentID, BookID, BorrowDate) VALUES (?, ?, ?)";
+            String borrowQuery = "INSERT INTO transactions (StudentID, BookID, issue_date, due_date) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement borrowStatement = conn.prepareStatement(borrowQuery);
             borrowStatement.setInt(1, this.StudentID);  
             borrowStatement.setInt(2, availabilityResult.getInt("BookID"));  
             borrowStatement.setDate(3, new Date(System.currentTimeMillis()));  // Set the current date as the borrow date
+            System.out.print("Enter the due date (yyyy-MM-dd): ");
+            String due_date = scanner.nextLine();
+            borrowStatement.setString(4, due_date);
             borrowStatement.executeUpdate();
+
+
 
             // Update the book availability to 'Borrowed'
             String updateAvailabilityQuery = "UPDATE books SET Availability = 'Borrowed' WHERE BookID = ?";
@@ -218,8 +224,10 @@ public class Student {
         while (!exit) {
             System.out.println("1. View all books");
             System.out.println("2. Borrow a Book");
-            System.out.println("3. View Your borrow status");
-            System.out.println("4. Logout");
+            System.out.println("3. Reserve a Book");
+            System.out.println("4. View Your borrow transaction");
+            System.out.println("5. Return a Book");
+            System.out.println("6. Logout");
             
             try {
                 int choice = scanner.nextInt();
@@ -232,12 +240,19 @@ public class Student {
                         break;
                     case 2:
                         // Handle borrowing logic
-                        borrowBook();
+                        // borrowBook();
+            
                         break;
                     case 3:
                         // Handle borrow status view logic
                         break;
                     case 4:
+                        book.reserveBook();
+                    break;
+                    case 5:
+                        book.returnBook();
+                        break;
+                    case 6:
                         exit = true;
                         break;
                     default:

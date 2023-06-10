@@ -1,11 +1,12 @@
 
 import java.util.Scanner;
-import java.sql.*;
+
 
 
 public class Librarian {
     //this is the object reference to the database connection
     DBconnection db = new DBconnection();
+    Student student = new Student();
     //  Books book = new Books();
     Book book = new Book();
 
@@ -30,19 +31,19 @@ public class Librarian {
             }
                 switch (choice) {
                     case 1:
-                        // book.findAllBooks();
+                       student.ViewBooks();
                         break;
                     case 2:
                         book.addBook();
                         break;
                     case 3:
-                    //    book.deleteBook();
+                        book.deleteBook();
                         break;
                     case 4:
                         // viewAllBorrowers();
                         break;
                     case 5:
-                        // addBorrower();
+                        book.returnBook();
                         break;
                     case 6:
                         // removeBorrower();
