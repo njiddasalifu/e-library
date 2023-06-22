@@ -20,33 +20,6 @@ class borrower {
         }
     }
 
-    // private void addBorrower() {
-    //     try (Scanner scanner = new Scanner(System.in); Connection conn = db.getConnection()) {
-    //         System.out.print("Borrower name: ");
-    //         String name = scanner.nextLine();
-    //         System.out.print("Borrower email: ");
-    //         String email = scanner.nextLine();
-    //         System.out.print("Borrower phone number: ");
-    //         String phoneNumber = scanner.nextLine();
-    //         System.out.print("Borrower address: ");
-    //         String address = scanner.nextLine();
-
-    //         String query = "INSERT INTO borrowers (name, email, phone_number, address) VALUES (?, ?, ?, ?)";
-    //         PreparedStatement stmt = conn.prepareStatement(query);
-    //         stmt.setString(1, name);
-    //         stmt.setString(2, email);
-    //         stmt.setString(3, phoneNumber);
-    //         stmt.setString(4, address);
-    //         int result = stmt.executeUpdate();
-    //         if (result > 0) {
-    //             System.out.println("Borrower added successfully.");
-    //         } else {
-    //             System.out.println("Failed to add borrower.");
-    //         }
-    //     } catch (SQLException ex) {
-    //         System.out.println("Error: " + ex.getMessage());
-    //     }
-    // }
 
     private void removeBorrower() {
         try (Scanner scanner = new Scanner(System.in); Connection conn = db.getConnection()) {
